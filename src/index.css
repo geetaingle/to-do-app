@@ -1,0 +1,16 @@
+body {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(121, 50, 104, 1) 0%,
+    rgba(142, 49, 123, 0.9948354341736695) 21%,
+    rgba(140, 76, 130, 1) 33%,
+    rgba(187, 139, 231, 1) 70%,
+    rgba(120, 160, 255, 1) 87%,
+    rgba(171, 225, 249, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  color: rgb(90, 90, 90);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
