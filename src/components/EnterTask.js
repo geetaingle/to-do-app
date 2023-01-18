@@ -26,8 +26,10 @@ function EnterTask(props) {
         InputProps={{
           classes: { focused: classes.focused },
         }}
+        InputLabelProps={{ shrink: props.shrink }}
         inputRef={props.textFieldRef}
         onKeyPress={(e) => props.handleEnterTask(e)}
+        onClick={props.handleTextLabel}
       />
     </>
   );
