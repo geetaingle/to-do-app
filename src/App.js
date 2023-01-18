@@ -2,7 +2,7 @@ import "./App.css";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import EnterTask from "./components/EnterTask";
 import Task from "./components/Task";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const theme = createMuiTheme({
   typography: {
@@ -16,6 +16,13 @@ function App() {
   const [shrinkLabel, setShrinkLabel] = useState(false);
 
   const textFieldRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleEnterTask = (e) => {
     if (e.key === "Enter" && e.target.value !== "") {
@@ -36,6 +43,11 @@ function App() {
     setShrinkLabel(true);
   };
 
+  const handleClickOutside = (e) => {
+    if (textFieldRef.current && !textFieldRef.current.contains(e.target)) {
+      setShrinkLabel(false);
+    }
+  };
   return (
     <ThemeProvider theme={theme}>
       <div className="bg-entertask">
