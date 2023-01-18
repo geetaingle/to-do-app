@@ -13,6 +13,7 @@ const data = {};
 
 function App() {
   const [tasks, setTasks] = useState(data);
+  const [shrinkLabel, setShrinkLabel] = useState(false);
 
   const textFieldRef = useRef(null);
 
@@ -27,7 +28,12 @@ function App() {
       setTasks(temp);
       textFieldRef.current.value = null;
       textFieldRef.current.blur();
+      setShrinkLabel(false);
     }
+  };
+
+  const handleTextLabel = () => {
+    setShrinkLabel(true);
   };
 
   return (
@@ -36,6 +42,8 @@ function App() {
         <EnterTask
           handleEnterTask={handleEnterTask}
           textFieldRef={textFieldRef}
+          shrink={shrinkLabel}
+          handleTextLabel={handleTextLabel}
         />
       </div>
       <div className="bg-tasklist">
