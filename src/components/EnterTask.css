@@ -1,9 +1,11 @@
 .entertask {
-  width: 100%;
+  /* width: 100%; */
 }
-/* .css-v4u5dn-MuiInputBase-root-MuiInput-root::after {
-  border-bottom: 2px solid #0e1f31;
+
+.MuiInput-underline:after {
+  border-bottom: none !important;
 }
-.css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-  color: #0e1f31 !important;
-} */
+.MuiFormLabel-root.Mui-focused {
+  color: rgb(24, 22, 22) !important;
+  font-weight: 500;
+}
