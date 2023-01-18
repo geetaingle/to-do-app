@@ -5,11 +5,10 @@ import "./EnterTask.css";
 const useStyles = makeStyles((theme) => ({
   textField: {
     width: "100%",
-    color: "black",
+    color: "rgb(32, 32, 32)",
   },
   focused: {
-    color: "#2e2e2e",
-    fontSize: 25,
+    color: "rgb(32, 32, 32)",
   },
 }));
 
