@@ -12,12 +12,16 @@ const theme = createTheme({
 const data = {};
 
 function App() {
+  const [title, setTitle] = useState("");
   const [tasks, setTasks] = useState(data);
   const [shrinkLabel, setShrinkLabel] = useState(false);
 
   const textFieldRef = useRef(null);
 
   useEffect(() => {
+    fetch("http://localhost:8000/message")
+      .then((res) => res.json())
+      .then((data) => setTitle(data.message));
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -62,6 +66,7 @@ function App() {
   };
   return (
     <ThemeProvider theme={theme}>
+      <div className="app-title">{title}</div>
       <div className="bg-entertask">
         <EnterTask
           handleEnterTask={handleEnterTask}
