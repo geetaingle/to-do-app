@@ -1,10 +1,10 @@
 import "./App.css";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import EnterTask from "./components/EnterTask";
 import Task from "./components/Task";
 import { useRef, useState, useEffect } from "react";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: "'Goudy Bookletter 1911', serif",
   },
@@ -28,7 +28,7 @@ function App() {
     if (e.key === "Enter" && e.target.value !== "") {
       let temp = { ...tasks };
 
-      temp[Object.keys(temp).length] = {
+      temp[Math.random()] = {
         taskName: e.target.value,
         isComplete: false,
       };
@@ -37,6 +37,18 @@ function App() {
       textFieldRef.current.blur();
       setShrinkLabel(false);
     }
+  };
+
+  const handleCheck = (key, e) => {
+    let temp = { ...tasks };
+    temp[key].isComplete = e.target.checked;
+    setTasks(temp);
+  };
+
+  const handleDelete = (key) => {
+    let temp = { ...tasks };
+    delete temp[key];
+    setTasks(temp);
   };
 
   const handleTextLabel = () => {
@@ -60,7 +72,13 @@ function App() {
       </div>
       <div className="bg-tasklist">
         {Object.entries(tasks).map(([key, val]) => (
-          <Task key={key} task={val} />
+          <Task
+            key={key}
+            taskKey={key}
+            task={val}
+            handleCheck={handleCheck}
+            handleDelete={handleDelete}
+          />
         ))}
       </div>
     </ThemeProvider>

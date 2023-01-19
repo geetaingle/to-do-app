@@ -1,14 +1,18 @@
-import { Paper, Checkbox } from "@material-ui/core";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { Checkbox, IconButton, Paper } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
-import { useState } from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import "./Task.css";
+import Delete from "@mui/icons-material/Delete";
 
 const useStyles = makeStyles((theme) => ({
   taskPaper: {
     margin: 5,
     padding: 10,
     backgroundColor: "#ffffff7a",
+    position: "relative",
+    height: 30,
+    lineHeight: "25px",
+    fontSize: 17,
     "&:hover": {
       backgroundColor: "#ffffffcf",
     },
@@ -26,24 +30,27 @@ const CustomCheckBox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 function Task(props) {
-  const [checked, setChecked] = useState(false);
-
   const classes = useStyles();
-
-  const handleCheck = (event) => {
-    setChecked(event.target.checked);
-  };
-
-  const handleDelete = () => {
-    // Do something when the button is clicked
-  };
 
   return (
     <>
-      <Paper className={classes.taskPaper}>
+      <Paper
+        className={classes.taskPaper}
+        id={props.task.isComplete ? "task-complete" : ""}
+      >
         <span>{props.task.taskName}</span>
         <span className="task-checkbox">
-          <CustomCheckBox checked={checked} onChange={handleCheck} />
+          <CustomCheckBox
+            checked={props.task.isComplete}
+            onChange={(e) => props.handleCheck(props.taskKey, e)}
+          />
+
+          <IconButton
+            aria-label="delete"
+            onClick={() => props.handleDelete(props.taskKey)}
+          >
+            <Delete color="error" />
+          </IconButton>
         </span>
       </Paper>
     </>

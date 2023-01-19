@@ -1,5 +1,10 @@
 .task-checkbox {
-  /* position: absolute;
-  right: 0; */
+  position: absolute;
+  right: 0;
+  bottom: 0px;
   justify-content: end;
+}
+#task-complete {
+  background-color: #36363659 !important;
+  text-decoration: line-through;
 }
