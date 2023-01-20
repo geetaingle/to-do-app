@@ -1,5 +1,6 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import axios from "axios";
 import EnterTask from "./components/EnterTask";
 import Task from "./components/Task";
 import { useRef, useState, useEffect } from "react";
@@ -10,25 +11,27 @@ const theme = createTheme({
   },
 });
 const data = {};
-
+const apiUrl = "http://localhost:8000/api/todos";
 function App() {
-  const [title, setTitle] = useState("");
   const [tasks, setTasks] = useState(data);
   const [shrinkLabel, setShrinkLabel] = useState(false);
 
   const textFieldRef = useRef(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/message")
-      .then((res) => res.json())
-      .then((data) => setTitle(data.message));
+    async function fetchData() {
+      let { todos } = await axios.get(apiUrl);
+      setTasks(todos);
+    }
+    fetchData();
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
-  const handleEnterTask = (e) => {
+  const handleEnterTask = async (e) => {
     if (e.key === "Enter" && e.target.value !== "") {
       let temp = { ...tasks };
 
@@ -36,6 +39,12 @@ function App() {
         taskName: e.target.value,
         isComplete: false,
       };
+      // const todo = {
+      //   taskName: e.target.value,
+      //   isComplete: false,
+      // };
+      // const { resp } = await axios.post(apiUrl, todo);
+      // console.log(resp);
       setTasks(temp);
       textFieldRef.current.value = null;
       textFieldRef.current.blur();
@@ -66,7 +75,6 @@ function App() {
   };
   return (
     <ThemeProvider theme={theme}>
-      <div className="app-title">{title}</div>
       <div className="bg-entertask">
         <EnterTask
           handleEnterTask={handleEnterTask}
